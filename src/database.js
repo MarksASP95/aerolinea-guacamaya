@@ -2,8 +2,8 @@ const Sequelize = require('sequelize');
 const fs = require('fs');
 const path = require('path');
 
-const sequelize = new Sequelize('world', 'root', 'ronaldo', {
-    host: 'localhost',
+const sequelize = new Sequelize('bwcu5y15a62g3sdbkekx', 'uvyfncr6ykonmf1f', 'iwZLnOpfJzJkhNtwfFgV', {
+    host: 'bwcu5y15a62g3sdbkekx-mysql.services.clever-cloud.com',
     dialect: 'mysql',
     operatorsAliases: false,
 
