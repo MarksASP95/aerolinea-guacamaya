@@ -44,6 +44,6 @@ app.listen(app.get('port'), () => {
 });
  */
 
-ModeloAvion.findAll({raw: true})
+/* ModeloAvion.findAll({raw: true})
     .then(modelos => console.log(modelos));
-
+ */
