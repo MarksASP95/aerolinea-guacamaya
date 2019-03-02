@@ -5,7 +5,9 @@ const mysql = require('mysql');
 
 const db = require('./database');
 
-const City = db.city;
+const ModeloAvion = db.modelo_avion;
+var Op = db.sequelize.Op;
+
 const app = express();
 
 
@@ -26,16 +28,22 @@ app.listen(app.get('port'), () => {
     console.log(`Server on port ${app.get('port')}`);
 });
 
-City.findAll({attributes: ['Name', 'CountryCode', 'Population'],
-    where: {
-        Name: 'Caracas'
+/* Avion.findAll({attributes: ['modelo', 'id_mant', 'estado', 'equip_med'],
+     where: {
+        nom_persona: {
+            [Op.like]: 'D%'
+        }
     },
     raw: true
 })
-.then(cities => {
-    console.log(cities);
+.then(personas => {
+    console.log(personas);
 })
 .catch(err => {
     console.log(err);
 });
+ */
+
+ModeloAvion.findAll({raw: true})
+    .then(modelos => console.log(modelos));
 
