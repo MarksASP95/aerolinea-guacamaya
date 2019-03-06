@@ -20,12 +20,19 @@ app.use(express.json());
 // ROUTES
 //app.use('/route', require());
 
+app.use('/persona', require('./routes/persona.routes'));
+
+
 // STATIC FILES
 app.use(express.static(path.join(__dirname, 'public')));
 
 // START SERVER
 app.listen(app.get('port'), () => {
     console.log(`Server on port ${app.get('port')}`);
+});
+
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname + '/public/index.html'));
 });
 
 /* Avion.findAll({attributes: ['modelo', 'id_mant', 'estado', 'equip_med'],
