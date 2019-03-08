@@ -1,0 +1,58 @@
+#vuelos-buttons{
+    width: 20%;
+    height: 100%;
+    float: left;
+}
+
+#vuelos-buttons div{
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+#vuelos-buttons div span{
+    line-height: 30px;
+}
+
+h2{
+    margin-bottom: 20px;
+}
+
+#table-container{
+    
+}
+
+#table-container table{
+    width: 100%;
+    border: 1px solid black;
+}
+
+#crear{
+    width: 70%;
+    margin:0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    border: 1px solid black;    
+}
+
+#crear .dato-vuelo{
+    box-sizing: border-box;
+    width: 50%;
+    padding: 20px;
+    text-align: center;
+    font-size: 1.5em;
+}
+
+#crear .dato-vuelo span, #crear .dato-vuelo select{
+    display: block;
+    margin: 20px auto;
+}
+
+#crear .dato-vuelo select{
+    height: 50px;
+}
+
+#crear button{
+    display: block;
+    margin: 0 auto;
+}
