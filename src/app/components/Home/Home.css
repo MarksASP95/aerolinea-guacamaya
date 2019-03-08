@@ -1,0 +1,27 @@
+.home-button-container{
+    border: 1px solid black;
+    height: 400px;
+    width: 50%;
+    display: flex;
+    margin: auto;
+    margin-top: 50px;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.home-button{
+    height: 100px;
+    width: 40%;
+    border: 1px solid black;
+    margin: 30px;
+    min-width: 25%;
+}
+
+.home-button-name{
+    display: block;
+    line-height: 100px;
+    height: 100%;
+    text-align: center;
+    text-decoration: none;
+}
