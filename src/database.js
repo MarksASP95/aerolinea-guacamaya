@@ -21,7 +21,7 @@ sequelize
         console.log("Connected to database");
     })
     .catch(err => {
-        console.error("Unable to connect to database: ", err);
+        console.error("Unable to connect to database");
     });
 
 const dir = path.join(__dirname, 'models');
