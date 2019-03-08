@@ -1,0 +1,47 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+footer{
+    position: absolute;
+    left: 50%;
+    bottom: 10px;
+    padding-top: 10px;
+    transform: translate(-50%,0);
+    width: 100%;
+    border-top: 1px solid black;
+    text-align: center;
+}
+
+.has-shadow{
+    -webkit-box-shadow: 6px 9px 0px 3px rgba(0,0,0,0.52);
+    -moz-box-shadow: 6px 9px 0px 3px rgba(0,0,0,0.52);
+    box-shadow: 6px 9px 0px 3px rgba(0,0,0,0.52);
+}
+
+.normal-button{
+    border: 1px solid black;
+    height: 30px;
+    cursor: pointer;
+}
+
+.container{
+    width: 80%; 
+    margin: 0 auto;
+}
+
+.sub-component{
+    width: 75%;
+    float: right;
+}
+
+.inactive{
+    height: 0;
+    visibility: hidden;
+}
+
+.active{
+    visibility: visible;
+}
