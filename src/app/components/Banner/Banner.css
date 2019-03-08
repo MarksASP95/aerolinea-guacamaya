@@ -1,0 +1,11 @@
+#banner{
+    width: 100%;
+    margin-bottom: 25px;
+}
+
+#banner-link{
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    color: black;
+}
