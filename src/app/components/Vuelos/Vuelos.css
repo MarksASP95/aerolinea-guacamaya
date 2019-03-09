@@ -1,29 +1,15 @@
-#vuelos-buttons{
-    width: 20%;
-    height: 100%;
-    float: left;
-}
-
-#vuelos-buttons div{
-    margin-bottom: 25px;
-    text-align: center;
-}
-
-#vuelos-buttons div span{
-    line-height: 30px;
-}
-
 h2{
     margin-bottom: 20px;
 }
 
-#table-container{
+.table-container{
     
 }
 
-#table-container table{
+.table-container table{
     width: 100%;
     border: 1px solid black;
+    margin-bottom: 30px;
 }
 
 #crear{
