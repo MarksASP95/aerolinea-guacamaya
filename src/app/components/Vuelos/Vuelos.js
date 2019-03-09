@@ -17,12 +17,10 @@ class Vuelos extends Component{
     }
 
     toggleSubComponent(component){
-        console.log('clicked ', component);
         var subComponentsCopy = this.state.subComponents;
         Object.keys(this.state.subComponents).forEach(keyName => {
             if(keyName === component){
                 subComponentsCopy[keyName] = true;
-                console.log('hit',keyName);
             }
             else{
                 subComponentsCopy[keyName] = false;
@@ -30,19 +28,18 @@ class Vuelos extends Component{
             
         });
         this.setState({subComponents: subComponentsCopy});
-        console.log(this.state);
     }
 
     render(){
         return(
             <div className="container">
-                <div id="vuelos-buttons">
+                <div className="sub-component-buttons">
                     <div className="normal-button" onClick={() => this.toggleSubComponent('crear')}><span>Crear vuelo</span></div>
                     <div className="normal-button" onClick={() => this.toggleSubComponent('consultar')}><span>Consultar vuelos</span></div>
                     <div className="normal-button" onClick={() => this.toggleSubComponent('reportes')}><span>Reportes</span></div>
                 </div>
 
-                <div className={this.state.subComponents.consultar ? 'active sub-component' : 'inactive sub-component'} id="table-container">
+                <div className={this.state.subComponents.consultar ? 'active sub-component table-container' : 'inactive sub-component table-container'}>
                     <h2>Consultar vuelos</h2>
                     <form onSubmit={this.handleConsultarSubmit}>
                         <table>
@@ -111,6 +108,46 @@ class Vuelos extends Component{
                         <button className="normal-button" type="submit">Crear vuelo</button>
                     </form>
                 </div> 
+
+                <div className={this.state.subComponents.reportes ? 'active sub-component table-container' : 'inactive sub-component table-container'} id="reportes-vuelo-container">
+                    <h2>Reportes</h2>
+                    <h3>Sobreabordo</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Núm. Vuelo</th>
+                                <th>Capacidad</th>
+                                <th>Boletos otorgados</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3>Ciudades más visitadas</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Ciudad</th>
+                                <th>Visitas</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
             </div>
         );
     }
