@@ -1,0 +1,101 @@
+#selects{
+    width: 25%;
+    float:left;
+}
+
+#selects span{
+    font-size: 1.5em;
+    display: block;
+    text-align: center;
+    margin: 20px auto;
+}
+
+#selects select{
+    height: 50px;
+    display: block;
+    margin: 20px auto;
+}
+
+#ficha {
+    margin-top: 20px;
+    width: 70%;
+    float: right;
+}
+
+#ficha table{
+    width: 100%;
+}
+
+#ficha table tbody tr td{
+    padding-top: 20px;
+}
+
+#ficha table tbody tr td:nth-child(1){
+    font-weight: bold;
+}
+
+#confirm-buttons{
+    display: block;
+    margin: 40px auto;
+    width:  50%;
+}
+
+#confirm-buttons *{
+    padding: 10px 20px 0;
+}
+
+#confirm-buttons :nth-child(1){
+    float: left;
+}
+
+#confirm-buttons :nth-child(2){
+    float: right;
+}
+
+#rutas-avion-container h2:not(:first-child){
+    margin-top: 20px;
+}
+
+#rutas-avion-container h2 span{
+    font-style: italic;
+}
+
+#nueva-ruta-container span{
+    padding: 0 20px;
+}
+
+#submit-nuevo{
+    border: 1px solid black;
+    height: 30px;
+    cursor: pointer;
+    width: 70px;
+    margin: 0 auto;
+    margin-top: 30px;
+    padding-top: 10px;
+    text-align: center;
+}
+
+#select-avion-reporte{
+    width: 25%;
+    float: left;
+}
+
+#select-avion-reporte select{
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+    text-align: center;
+}
+
+#avion-reporte{
+    width: 70%;
+    float: right;
+}
+
+#avion-reporte table:not(:first-child){
+    text-align: center;
+}
+
+h2 span{
+    font-style: italic;
+}
