@@ -9,7 +9,7 @@ class Banner extends Component{
         return(
             <div id="banner">
                 <NavLink to="/home" id="banner-link">
-                    <h1>Aerolíneas Guacamaya</h1>
+                    <h1>Aerolínea Guacamaya</h1>
                 </NavLink>
                 <hr />
             </div>
