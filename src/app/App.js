@@ -6,6 +6,7 @@ import About from './components/About'
 import Navigation from './components/Navigation'
 import Error from './components/Error'
 import Vuelos from './components/Vuelos/Vuelos'
+import Avion from './components/Avion/Avion'
 import Banner from './components/Banner/Banner'
 
 
@@ -21,6 +22,7 @@ class App extends Component {
                             <Route path="/home" component={Home} />
                             <Route path="/about" component={About} />
                             <Route path="/vuelos" component={Vuelos} />
+                            <Route path="/aviones" component={Avion} />
                             <Route component={Error} />
                         </Switch>
                     </div>
