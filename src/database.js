@@ -2,7 +2,7 @@ const Sequelize = require('sequelize');
 const fs = require('fs');
 const path = require('path');
 
-/* const sequelize = new Sequelize('bwcu5y15a62g3sdbkekx', 'uvyfncr6ykonmf1f', 'iwZLnOpfJzJkhNtwfFgV', {
+const sequelize = new Sequelize('bwcu5y15a62g3sdbkekx', 'uvyfncr6ykonmf1f', 'iwZLnOpfJzJkhNtwfFgV', {
     host: 'bwcu5y15a62g3sdbkekx-mysql.services.clever-cloud.com',
     dialect: 'mysql',
     operatorsAliases: false,
@@ -13,9 +13,9 @@ const path = require('path');
         acquire: 30000,
         idle: 10000
     }
-}); */
+});
 
-const sequelize = new Sequelize('guacamaya', 'root', 'ronaldo', {
+/* const sequelize = new Sequelize('guacamaya', 'root', 'ronaldo', {
     host: 'localhost',
     dialect: 'mysql',
     operatorsAliases: false,
@@ -26,7 +26,7 @@ const sequelize = new Sequelize('guacamaya', 'root', 'ronaldo', {
         acquire: 30000,
         idle: 10000
     }
-});
+}); */
 
 sequelize
     .authenticate()
