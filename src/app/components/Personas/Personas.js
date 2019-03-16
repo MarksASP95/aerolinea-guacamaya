@@ -121,7 +121,7 @@ class Personas extends Component{
                         switch(response.status){
                             case 'success': alert('Tripulación almacenada');
                             break;
-                            case 'rollback': alert('ERROR: este vuelo ya tiene una tripulacion');
+                            case 'rollback': alert('ERROR: este vuelo ya tiene una tripulación');
                             break;
                         }
                     })
@@ -129,7 +129,7 @@ class Personas extends Component{
 
         }
         else{
-            console.log('Inválida')
+            alert('La tripulación no puede tener empleados repetidos');
         } 
 
 
