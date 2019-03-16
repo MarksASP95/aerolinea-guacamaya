@@ -4,15 +4,33 @@
     font-family: 'Roboto', sans-serif;
 }
 
-footer{
-    position: absolute;
-    left: 50%;
-    bottom: 10px;
-    padding-top: 10px;
-    transform: translate(-50%,0);
+html{
+    height: 100%;
+}
+
+body{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    background: url('img/background.jpg');
+    background-size: cover;
+}
+
+#app{
+    flex: 1;
+}
+
+#footer{
     width: 100%;
-    border-top: 1px solid black;
+    flex-shrink: 0;
+    background-color: #efefef;
+    height: 50px;
+}
+
+#footer p{
     text-align: center;
+    line-height: 50px;
 }
 
 .has-shadow{
@@ -27,12 +45,34 @@ footer{
     min-height: 30px;
     max-height: 70px;
     cursor: pointer;
+    padding: 10px;
+}
+
+div.normal-button{
+    color:black;
+    background-color: white;
+    transition: all .1s ease-in-out;
+}
+
+div.normal-button:hover{
+    background-color: rgb(148, 147, 147);
+    color: #fff;    
+}
+
+.middle-button{
+    display: block;
+    margin: 20px auto;
+}
+
+.normal-input{
+    text-align: center;
 }
 
 .sub-component-buttons{
     width: 20%;
     height: 100%;
     float: left;
+    
 }
 
 .sub-component-buttons div{
@@ -50,17 +90,32 @@ footer{
 }
 
 .sub-component{
-    width: 75%;
+    color: white;
+    padding: 20px;
+    width: 70%;
     float: right;
+    height: auto;
+    background-color: rgba(59, 59, 59, 0.774);
+    max-height: 400px;
+    overflow-y: scroll;
+    
 }
 
 .inactive{
-    height: 0;
-    visibility: hidden;
+    display: none;
 }
 
 .active{
-    visibility: visible;
+    display:block;
+}
+
+input[type="text"]{
+    height: 25px;
+}
+
+select, input[type="text"]{
+    border: 1px solid black;
+    border-radius: 2px;
 }
 
 .normal-select{
@@ -69,6 +124,106 @@ footer{
 
 .normal-table{
     width: 100%;
-    border: 1px solid black;
     text-align: center;
+    border-spacing: 0;
+    transition: all .1s ease-in-out;
+}
+
+.normal-table th{
+    margin: 0;
+    padding: 0;
+}
+
+.normal-table tbody{
+    color:#000;
+}
+
+.normal-table tr, .normal-table th{
+    height: 40px;
+    color: #000;
+}
+
+.normal-table tr:nth-child(even){
+    background-color: rgb(196, 196, 196);
+}
+
+.normal-table tr:nth-child(odd){
+    background-color: #fff;
+}
+
+
+.normal-table thead{
+    background-color: black;
+}
+
+.normal-table thead th{
+    color: white;
+}
+
+.home-button-container .home-button:hover{
+    /* -webkit-filter: opacity(.7); */
+    
+    outline: 4px solid white;
+    transition: all .1s ease-in-out;
+}
+
+.home-button-container .home-button a{
+    background-repeat: no-repeat;   
+    background-position-y: 1px;
+}
+
+.home-button-container .home-button:nth-child(4) a {
+    background-image: url('img/personas.jpg');
+    background-position-y: -8px;
+    background-position-x: -26px;
+}
+
+.home-button-container .home-button:nth-child(3) a {
+    background-image: url('img/reservas.jpg');
+    background-size: cover;
+}
+
+.home-button-container .home-button:nth-child(2) a {
+    background-image: url('img/aviones.jpg');
+}
+
+.home-button-container .home-button:nth-child(1) a {
+    background-image: url('img/vuelos.jpg');
+}
+
+#home-button-aviones{
+    background: url('img/aviones.jpg');
+}
+
+#loading-component{
+    visibility: hidden;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(51, 51, 51, 0.705);
+}
+
+#loading {
+    width: 30%;
+    height: 150px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    z-index: 21;
+    display: flex;
+    flex-direction: column;
+    flex-direction: column-reverse;
+    flex-wrap: wrap;
+    background: url("img/loading.gif") no-repeat;
+    background-size: contain;
+    background-position: center;
+    text-align: center;
+    color: white;
+}
+
+.leyenda{
+    display: block;
+    margin:0;
+    font-size: .5em;
 }
