@@ -342,7 +342,7 @@ class Personas extends Component{
                                     <td>
                                         <select name="consultarA" onChange={this.handleConsultarChange}>
                                             <option value="">Todos</option>
-                                            <option value="empleados">Empledos</option>
+                                            <option value="empleados">Empleados</option>
                                             <option value="compradores">Compradores</option>
                                             <option value="pasajeros">Pasajeros</option>
                                         </select>
