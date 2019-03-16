@@ -2,13 +2,8 @@ h2{
     margin-bottom: 20px;
 }
 
-.table-container{
-    
-}
-
 .table-container table{
     width: 100%;
-    border: 1px solid black;
     margin-bottom: 30px;
 }
 
@@ -18,13 +13,12 @@ h2{
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    border: 1px solid black;    
 }
 
 #crear .dato-vuelo{
     box-sizing: border-box;
     width: 50%;
-    padding: 20px;
+    padding: 7px;
     text-align: center;
     font-size: 1.5em;
 }
@@ -35,7 +29,7 @@ h2{
 }
 
 #crear .dato-vuelo select{
-    height: 50px;
+    height: 35px;
 }
 
 #crear button{
