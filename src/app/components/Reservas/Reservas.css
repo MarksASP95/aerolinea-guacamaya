@@ -1,0 +1,21 @@
+ul{
+    margin: 20px;
+}
+
+#reintegros-container table{
+    margin: 20px 0;
+}
+
+#lista-escala tr, #lista-pasajero tr{
+    background-color: white;
+    color:black;
+}
+
+#lista-escala tr td, #lista-pasajero tr td{
+    border: 1px solid black;
+
+}
+
+#lista-escala p{
+    line-height: 50px;
+}
