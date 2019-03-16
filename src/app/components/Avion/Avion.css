@@ -40,9 +40,6 @@
     width:  50%;
 }
 
-#confirm-buttons *{
-    padding: 10px 20px 0;
-}
 
 #confirm-buttons :nth-child(1){
     float: left;
@@ -64,16 +61,6 @@
     padding: 0 20px;
 }
 
-#submit-nuevo{
-    border: 1px solid black;
-    height: 30px;
-    cursor: pointer;
-    width: 70px;
-    margin: 0 auto;
-    margin-top: 30px;
-    padding-top: 10px;
-    text-align: center;
-}
 
 #select-avion-reporte{
     width: 25%;
@@ -92,7 +79,7 @@
     float: right;
 }
 
-#avion-reporte table:not(:first-child){
+#avion-reporte table{
     text-align: center;
 }
 
