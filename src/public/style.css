@@ -164,7 +164,6 @@ select, input[type="text"]{
     /* -webkit-filter: opacity(.7); */
     
     outline: 4px solid white;
-    transition: all .1s ease-in-out;
 }
 
 .home-button-container .home-button a{
