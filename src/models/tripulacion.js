@@ -6,8 +6,8 @@ module.exports = (sequelize, DataTypes) => {
                 primaryKey: true,
                 allowNull: false
             },
-            id_persona: {
-                type: DataTypes.STRING(44),
+            id_vuelo: {
+                type: DataTypes.INTEGER(11),
                 primaryKey: true,
                 allowNull: false
             }
