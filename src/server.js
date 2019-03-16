@@ -21,7 +21,12 @@ app.use(express.json());
 //app.use('/route', require());
 
 app.use('/persona', require('./routes/persona.routes'));
-
+app.use('/avion', require('./routes/avion.routes'));
+app.use('/proveedor', require('./routes/proveedor.routes'));
+app.use('/modelo_avion', require('./routes/modelo_avion.routes'));
+app.use('/aeropuerto', require('./routes/aeropuerto.routes'));
+app.use('/vuelo', require('./routes/vuelo.routes'));
+app.use('/ruta', require('./routes/ruta.routes'));
 
 // STATIC FILES
 app.use(express.static(path.join(__dirname, 'public')));
