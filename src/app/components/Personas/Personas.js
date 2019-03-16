@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 
+import { uniq } from 'lodash';
+
 import './Personas.css'
 
 class Personas extends Component{
@@ -22,7 +24,15 @@ class Personas extends Component{
             personas: [],
             listaVuelos: [],
             listaPilotos: [],
-            listaAzafatas: []
+            listaAzafatas: [],
+            nuevaTrip: {
+                tripVuelo: '',
+                tripPiloto1: '',
+                tripPiloto2: '',
+                tripAzafata1: '',
+                tripAzafata2: '',
+                tripAzafata3: ''
+            }
         }
 
         this.toggleSubComponent = this.toggleSubComponent.bind(this);
@@ -30,6 +40,8 @@ class Personas extends Component{
         this.handleNuevoChange = this.handleNuevoChange.bind(this);
         this.handleConsultarPersona = this.handleConsultarPersona.bind(this);
         this.handleConsultarChange = this.handleConsultarChange.bind(this);
+        this.handleTripChange = this.handleTripChange.bind(this);
+        this.handleNuevaTripulacion = this.handleNuevaTripulacion.bind(this);
 
     }
 
@@ -67,6 +79,60 @@ class Personas extends Component{
 
     handleNuevoChange(e){
         console.log(e.target.value);
+    }
+
+    handleTripChange(e){
+        let nuevaTripCopy = this.state.nuevaTrip;
+
+        nuevaTripCopy[e.target.name] = e.target.value;
+        this.setState({nuevaTrip: nuevaTripCopy});
+    }
+
+    tripulacionEsValida(tripulacion){
+        let pilotosValidos = uniq(tripulacion.empleado.pilotos).length === tripulacion.empleado.pilotos.length ? true : false;
+        let azafatasValidos = uniq(tripulacion.empleado.azafatas).length === tripulacion.empleado.azafatas.length ? true : false;
+    
+        return pilotosValidos * azafatasValidos;
+    }
+
+    handleNuevaTripulacion(e){
+        e.preventDefault();
+
+        let nuevaTripRef = this.state.nuevaTrip;
+
+        let data = {
+            empleado: {
+                pilotos: [nuevaTripRef.tripPiloto1, nuevaTripRef.tripPiloto2],
+                azafatas: [nuevaTripRef.tripAzafata1, nuevaTripRef.tripAzafata2, nuevaTripRef.tripAzafata3]
+            },
+            id_vuelo: this.state.nuevaTrip.tripVuelo
+        }
+
+        if(this.tripulacionEsValida(data)){
+            fetch('persona/tripulacion', {
+                method: 'POST',
+                body: JSON.stringify(data),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(res => {
+                res.json()
+                    .then(response => {
+                        switch(response.status){
+                            case 'success': alert('Tripulación almacenada');
+                            break;
+                            case 'rollback': alert('ERROR: este vuelo ya tiene una tripulacion');
+                            break;
+                        }
+                    })
+            })
+
+        }
+        else{
+            console.log('Inválida')
+        } 
+
+
     }
 
     submitNuevaPersona(e){
@@ -209,58 +275,61 @@ class Personas extends Component{
 
                 <div className={this.state.subComponents.nuevaTripulacion ? 'active sub-component' : 'inactive sub-component'} id="nueva-tripulacion-container">
                     <h2>Nueva tripulación</h2>
-                    <table className="form-table">
-                        <tbody>
-                            <tr>
-                                <td>Vuelo</td>
-                                <td>
-                                    <select>
-                                        {listaVuelos}
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Piloto 1</td>
-                                <td>
-                                    <select>
-                                        {listaPilotos}
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Piloto 2</td>
-                                <td>
-                                    <select>
-                                        {listaPilotos}
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Azafata 1</td>
-                                <td>
-                                    <select>
-                                        {listaAzafatas}
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Azafata 2</td>
-                                <td>
-                                    <select>
-                                        {listaAzafatas}
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Azafata 3</td>
-                                <td>
-                                    <select>
-                                        {listaAzafatas}
-                                    </select>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <form onSubmit={this.handleNuevaTripulacion}>
+                        <table className="form-table">
+                            <tbody>
+                                <tr>
+                                    <td>Vuelo</td>
+                                    <td>
+                                        <select onChange={this.handleTripChange} name="tripVuelo">
+                                            {listaVuelos}
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Piloto 1</td>
+                                    <td>
+                                        <select onChange={this.handleTripChange} name="tripPiloto1">
+                                            {listaPilotos}
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Piloto 2</td>
+                                    <td>
+                                        <select onChange={this.handleTripChange} name="tripPiloto2">
+                                            {listaPilotos}
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Azafata 1</td>
+                                    <td>
+                                        <select onChange={this.handleTripChange} name="tripAzafata1">
+                                            {listaAzafatas}
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Azafata 2</td>
+                                    <td>
+                                        <select onChange={this.handleTripChange} name="tripAzafata2">
+                                            {listaAzafatas}
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Azafata 3</td>
+                                    <td>
+                                        <select onChange={this.handleTripChange} name="tripAzafata3">
+                                            {listaAzafatas}
+                                        </select>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <button type="submit" className="normal-button middle-button">Agregar tripulación</button>
+                    </form>
                 </div>
 
                 <div className={this.state.subComponents.consultar ? 'active sub-component' : 'inactive sub-component'} id="nuevo-empleado-container">
