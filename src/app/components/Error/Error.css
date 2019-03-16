@@ -1,0 +1,18 @@
+.error-container{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    height: 200px;
+    width: 500px;
+    background-color: rgba(59, 59, 59, 0.774);
+}
+
+.error-container h2{
+    position: absolute;
+    top: 50%;
+    transform: translate(0,-50%);
+    width: 100%;
+    text-align: center;
+    color: white;
+}
