@@ -11,10 +11,23 @@ class Personas extends Component{
                 nuevo: false,
                 nuevaTripulacion: false,
                 consultar: false
-            }
+            },
+            nueva:{
+                nuevaId: '',
+                nuevaNombre: '',
+                nuevaFecha: '',
+                nuevaSexo: ''
+            },
+            consultarA: '',
+            personas: [],
+            listaVuelos: []
         }
 
         this.toggleSubComponent = this.toggleSubComponent.bind(this);
+        this.submitNuevaPersona = this.submitNuevaPersona.bind(this);
+        this.handleNuevoChange = this.handleNuevoChange.bind(this);
+        this.handleConsultarPersona = this.handleConsultarPersona.bind(this);
+        this.handleConsultarChange = this.handleConsultarChange.bind(this);
 
     }
 
@@ -32,7 +45,85 @@ class Personas extends Component{
         this.setState({subComponents: subComponentsCopy});
     }
 
+    handleConsultarPersona(e){
+        e.preventDefault();
+
+        fetch(`persona/${this.state.consultarA}`)
+            .then(res => {
+                res.json()
+                    .then(personas => {
+                        this.setState({personas: personas});
+                    })
+            })
+    }
+
+    handleConsultarChange(e){
+        this.setState({
+            consultarA: e.target.value,
+            personas: []});
+    }
+
+    handleNuevoChange(e){
+        console.log(e.target.value);
+    }
+
+    submitNuevaPersona(e){
+        e.preventDefault();
+    }
+
+    componentDidMount(){
+
+        document.getElementById('loading-component').style.visibility = 'visible';
+
+        let cargarVuelos = new Promise((resolve, reject) => {
+            fetch('vuelo')
+                .then(res => {
+                    res.json()
+                        .then(vuelos => {
+                            resolve('Vuelos listos');
+                            this.setState({listaVuelos: vuelos});
+                        })
+                        .catch(err => {
+                            reject('Error al cargar vuelos');
+                        })
+                })
+        })
+        
+        Promise.all([cargarVuelos])
+            .then(msg => {
+                console.log('Selects listos!');
+                let changeEvent = document.createEvent('Event');
+                changeEvent.initEvent('change', true, false);
+                let selects = document.getElementsByTagName('select');
+
+                for(let el of selects){
+                    el.dispatchEvent(changeEvent);
+                }
+
+                document.getElementById('loading-component').style.visibility = 'hidden';
+            })
+            .catch(err => {
+                
+                console.log(err, '. Se actualizará la página');
+            })
+    }
+
     render(){
+
+        let personas = this.state.personas.map(persona => {
+            return(
+                <tr>
+                    <td>{persona.id_persona}</td>
+                    <td>{persona.nom_persona}</td>
+                </tr>
+            );
+        })
+
+        let listaVuelos = this.state.listaVuelos.map(vuelo => {
+            return(
+                <option value={vuelo.id_vuelo}>{vuelo.id_vuelo} => [{vuelo.origen}] - [{vuelo.destino}]</option>
+            );
+        })
 
         return(
             <div className="container">
@@ -44,44 +135,45 @@ class Personas extends Component{
 
                 <div className={this.state.subComponents.nuevo ? 'active sub-component' : 'inactive sub-component'} id="nuevo-empleado-container">
                     <h2>Nuevo empleado</h2>
-                    <table className="normal-table">
-                        <tbody>
-                            <tr>
-                                <td>ID (cédula, DNI, pasaporte)</td>
-                                <td><input type="text" className="normal-input"></input></td>
-                            </tr>
-                            <tr>
-                                <td>Nombre</td>
-                                <td><input type="text" className="normal-input"></input></td>
-                            </tr>
-                            <tr>
-                                <td>Fecha de nacimiento</td>
-                                <td><input type="text" className="normal-input" placeholder="deberia ser date"></input></td>
-                            </tr>
-                            <tr>
-                                <td>Sexo</td>
-                                <td>
-                                    <select>
-                                        <option>M</option>
-                                        <option>F</option>
-                                    </select>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                    <button className="normal-button middle-button">Ingresar empleado</button>
+                    <form onSubmit={(e) => this.submitNuevaPersona(e)}>
+                        <table className="form-table">
+                            <tbody>
+                                <tr>
+                                    <td>ID (cédula, DNI, pasaporte)</td>
+                                    <td><input onChange={this.handleNuevoChange} name="nuevaId" type="text" className="normal-input"></input></td>
+                                </tr>
+                                <tr>
+                                    <td>Nombre</td>
+                                    <td><input onChange={this.handleNuevoChange} name="nuevaNombre" type="text" className="normal-input"></input></td>
+                                </tr>
+                                <tr>
+                                    <td>Fecha de nacimiento</td>
+                                    <td><input onChange={this.handleNuevoChange} name="nuevaFecha" type="date" className="normal-input"></input></td>
+                                </tr>
+                                <tr>
+                                    <td>Sexo</td>
+                                    <td>
+                                        <select onChange={this.handleNuevoChange} name="nuevaSexo">
+                                            <option>M</option>
+                                            <option>F</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <button type="submit" className="normal-button middle-button">Ingresar empleado</button>
+                    </form>
                 </div>
 
                 <div className={this.state.subComponents.nuevaTripulacion ? 'active sub-component' : 'inactive sub-component'} id="nueva-tripulacion-container">
                     <h2>Nueva tripulación</h2>
-                    <table className="normal-table">
+                    <table className="form-table">
                         <tbody>
                             <tr>
                                 <td>Vuelo</td>
                                 <td>
                                     <select>
-                                        <option>lol</option>
+                                        {listaVuelos}
                                     </select>
                                 </td>
                             </tr>
@@ -131,22 +223,27 @@ class Personas extends Component{
 
                 <div className={this.state.subComponents.consultar ? 'active sub-component' : 'inactive sub-component'} id="nuevo-empleado-container">
                     <h2>Consultar personas</h2>
-                    <table className="normal-table">
-                        <tbody>
-                            <tr>
-                                <td>Consultar: </td>
-                                <td>
-                                    <select>
-                                        <option>todos</option>
-                                        <option>vuelo XXX123</option>
-                                    </select>
-                                </td>
-                                <td>
-                                    <button className="normal-button">Buscar</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <form onSubmit={this.handleConsultarPersona}>
+                        <table className="normal-table">
+                            <tbody>
+                                <tr>
+                                    <td>Consultar: </td>
+                                    <td>
+                                        <select name="consultarA" onChange={this.handleConsultarChange}>
+                                            <option value="">Todos</option>
+                                            <option value="empleados">Empledos</option>
+                                            <option value="compradores">Compradores</option>
+                                            <option value="pasajeros">Pasajeros</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <button className="normal-button">Buscar</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </form>
+                    
 
                     <table className="normal-table">
                         <thead>
@@ -154,8 +251,7 @@ class Personas extends Component{
                             <th>Nombre</th>
                         </thead>
                         <tbody>
-                            <tr></tr>
-                            <tr></tr>
+                            {personas}
                         </tbody>
                     </table>
                 </div>
