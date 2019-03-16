@@ -20,7 +20,9 @@ class Personas extends Component{
             },
             consultarA: '',
             personas: [],
-            listaVuelos: []
+            listaVuelos: [],
+            listaPilotos: [],
+            listaAzafatas: []
         }
 
         this.toggleSubComponent = this.toggleSubComponent.bind(this);
@@ -88,8 +90,36 @@ class Personas extends Component{
                         })
                 })
         })
+
+        let cargarPilotos = new Promise((resolve, reject) => {
+            fetch('persona/pilotos')
+                .then(res => {
+                    res.json()
+                        .then(pilotos => {
+                            resolve('Pilotos listos');
+                            this.setState({listaPilotos: pilotos});
+                        })
+                        .catch(err => {
+                            reject('Error al cargar pilotos');
+                        })
+                })
+        })
+
+        let cargarAzafatas = new Promise((resolve, reject) => {
+            fetch('persona/azafatas')
+                .then(res => {
+                    res.json()
+                        .then(azafatas => {
+                            resolve('Azafatas listas');
+                            this.setState({listaAzafatas: azafatas});
+                        })
+                        .catch(err => {
+                            reject('Error al cargar azafatas');
+                        })
+                })
+        })
         
-        Promise.all([cargarVuelos])
+        Promise.all([cargarVuelos, cargarPilotos, cargarAzafatas])
             .then(msg => {
                 console.log('Selects listos!');
                 let changeEvent = document.createEvent('Event');
@@ -122,6 +152,18 @@ class Personas extends Component{
         let listaVuelos = this.state.listaVuelos.map(vuelo => {
             return(
                 <option value={vuelo.id_vuelo}>{vuelo.id_vuelo} => [{vuelo.origen}] - [{vuelo.destino}]</option>
+            );
+        })
+
+        let listaPilotos = this.state.listaPilotos.map(piloto => {
+            return(
+                <option value={piloto.id_emp}>{piloto.nom_persona} - [{piloto.id_emp}]</option>
+            );
+        })
+
+        let listaAzafatas = this.state.listaAzafatas.map(azafata => {
+            return(
+                <option value={azafata.id_emp}>{azafata.nom_persona} - [{azafata.id_emp}]</option>
             );
         })
 
@@ -181,7 +223,7 @@ class Personas extends Component{
                                 <td>Piloto 1</td>
                                 <td>
                                     <select>
-                                        <option>lol</option>
+                                        {listaPilotos}
                                     </select>
                                 </td>
                             </tr>
@@ -189,7 +231,7 @@ class Personas extends Component{
                                 <td>Piloto 2</td>
                                 <td>
                                     <select>
-                                        <option>lol</option>
+                                        {listaPilotos}
                                     </select>
                                 </td>
                             </tr>
@@ -197,7 +239,7 @@ class Personas extends Component{
                                 <td>Azafata 1</td>
                                 <td>
                                     <select>
-                                        <option>lol</option>
+                                        {listaAzafatas}
                                     </select>
                                 </td>
                             </tr>
@@ -205,7 +247,7 @@ class Personas extends Component{
                                 <td>Azafata 2</td>
                                 <td>
                                     <select>
-                                        <option>lol</option>
+                                        {listaAzafatas}
                                     </select>
                                 </td>
                             </tr>
@@ -213,7 +255,7 @@ class Personas extends Component{
                                 <td>Azafata 3</td>
                                 <td>
                                     <select>
-                                        <option>lol</option>
+                                        {listaAzafatas}
                                     </select>
                                 </td>
                             </tr>
