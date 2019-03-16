@@ -501,6 +501,7 @@ class Avion extends Component{
 
                 <div className={this.state.subComponents.rutas ? 'active sub-component' : 'inactive sub-component'} id="rutas-avion-container">
                     <form name="rutas-form" onSubmit={(e) => this.handleSubmitRuta(e)}>
+                        <h2>Rutas</h2>
                         <h2>
                             Avión:
                             <span> {this.state.selectedAvion}</span>
