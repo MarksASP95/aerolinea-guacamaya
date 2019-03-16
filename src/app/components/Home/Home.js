@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import './Home.css'
 import HomeButton from './HomeButton'
-import { NavLink } from 'react-router-dom'
 
 class Home extends Component {
     constructor(){
@@ -16,10 +15,10 @@ class Home extends Component {
         return(
             
             <div className="home-button-container">
-                <HomeButton where="vuelos" name="Vuelos" />
-                <HomeButton where="aviones" name="Aviones" />
-                <HomeButton where="reservas" name="Reservas" />
-                <HomeButton where="personas" name="Personas" />
+                <HomeButton where="vuelos" name="Vuelos" id="home-button-vuelos" />
+                <HomeButton where="aviones" name="Aviones" id="home-button-aviones" />
+                <HomeButton where="reservas" name="Reservas" id="home-button-reservas" />
+                <HomeButton where="personas" name="Personas" id="home-button-personas" />
             </div>
         );
     }
