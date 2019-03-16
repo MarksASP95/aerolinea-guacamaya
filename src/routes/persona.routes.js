@@ -9,6 +9,7 @@ var Piloto = db.piloto;
 var Reserva = db.reserva;
 var ReservaPasajero = db.reserva_pasajero;
 var Azafata = db.azafata;
+var Tripulacion = db.tripulacion;
 
 var sequelize = db.sequelize;
 var Sequelize = db.Sequelize;
@@ -82,6 +83,7 @@ router.get('/pilotos', (req, res) => {
     })
 })
 
+// dame todas las azafatas
 router.get('/azafatas', (req, res) => {
     Persona.findAll({
         attributes: ['empleado.id_emp', 'persona.nom_persona'],
@@ -89,6 +91,28 @@ router.get('/azafatas', (req, res) => {
         raw: true
     }).then(personas => {
         res.send(personas);
+    })
+})
+
+// nueva tripulacion
+router.post('/tripulacion', (req, res) => {
+    sequelize.transaction(t => {
+        var promises = [];
+        Object.keys(req.body.empleado).forEach(tipoEmp => {
+            for(let i = 0; i < req.body.empleado[tipoEmp].length; i++){
+                let newPromise = Tripulacion.create({id_vuelo: req.body.id_vuelo, id_emp: req.body.empleado[tipoEmp][i]}, {transaction: t});
+                promises.push(newPromise);
+            }
+        })
+        return Promise.all(promises);
+    })
+    .then(result => {
+        console.log('SUCCESS');
+        res.send({'status': 'success'});
+    })
+    .catch(err => {
+        console.log('ROLLBACK NIGGA');
+        res.send({'status':'rollback'});
     })
 })
 
