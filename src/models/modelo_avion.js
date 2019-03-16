@@ -55,6 +55,9 @@ module.exports = (sequelize, DataTypes) => {
             },
             tv: {
                 type: DataTypes.BOOLEAN
+            },
+            capacidad: {
+                type: DataTypes.INTEGER(3)
             }
         },
             {
