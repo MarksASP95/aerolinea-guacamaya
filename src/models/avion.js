@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.INTEGER(3),
                 allowNull: false
             },
-            fec_ult_mant:{
+            fec_ult_man:{
                 type: DataTypes.DATE,
             },
             estado: {
