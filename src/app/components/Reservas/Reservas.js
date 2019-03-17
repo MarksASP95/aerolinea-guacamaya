@@ -177,13 +177,13 @@ class Reservas extends Component{
     }
 
     setOrigenDestino(e, cantEscalas){
-        console.log(`origen${cantEscalas}`);
-        let select = document.getElementsByName(e.target.name)[cantEscalas];
-        console.log(select);
-        let origen = select.getAttribute('data-origen');
-        let destino = select.getAttribute('data-destino');
-        document.getElementsByClassName(`origen${cantEscalas}`)[0].innerHTML = 'Origen: ' + origen;
-        document.getElementsByClassName(`destino${cantEscalas}`)[0].innerHTML = 'Destino: ' + destino;
+        console.log(cantEscalas);
+        let select = document.getElementsByName(e.target.name)[0];
+        
+        let origen = select.options[select.selectedIndex].getAttribute('data-origen');
+        let destino = select.options[select.selectedIndex].getAttribute('data-destino');
+        document.getElementsByClassName(`origen${e.target.name.charAt(e.target.name.length - 1)}`)[0].innerHTML = 'Origen: ' + origen;
+        document.getElementsByClassName(`destino${e.target.name.charAt(e.target.name.length - 1)}`)[0].innerHTML = ' Destino: ' + destino;
     }
 
     componentDidUpdate(){
@@ -219,6 +219,13 @@ class Reservas extends Component{
 
         this.setState({cantEscalas: this.state.cantEscalas + 1,
                        escalas: escalas});
+    }
+
+    borrarEscala(){
+        let escalas = document.getElementsByClassName('add-escala');
+        let ultimaEscala = escalas[escalas.length - 1];
+
+        ultimaEscala.parentNode.removeChild(ultimaEscala);
     }
 
     render(){
@@ -257,7 +264,7 @@ class Reservas extends Component{
                         {this.state.escalas}
                     </table>
                     <button className="normal-button" onClick={this.nuevaEscala}>Añadir escala</button>
-                    <button className="normal-button">Quitar escala</button>
+                    <button className="normal-button" onClick={this.borrarEscala}>Quitar escala</button>
 
                     <h3>Pasajeros</h3>
                     <table className="normal-table" id="lista-pasajero">
