@@ -8,6 +8,8 @@ const router = express.Router();
 var Vuelo = db.vuelo;
 var Avion = db.avion;
 var ModeloAvion = db.modelo_avion;
+var Aeropuerto = db.aeropuerto;
+
 var Op = db.sequelize.Op;
 var sequelize = db.sequelize;
 var Sequelize = db.Sequelize;
