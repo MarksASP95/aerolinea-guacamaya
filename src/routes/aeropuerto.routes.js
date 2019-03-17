@@ -1,5 +1,6 @@
 const express = require('express');
 const db = require('../database');
+const groupBy = require('lodash/groupBy');
 
 const router = express.Router();
 
@@ -17,6 +18,16 @@ router.get('/', (req, res) => {
         raw: true
     }).then(aeropuertos => {
         res.send(aeropuertos);
+    });
+});
+
+// dame aeropuertos por ciudad
+router.get('/porciudad', (req, res) => {
+    Aeropuerto.findAll({
+        attributes: ['id_aer', 'nom_ciudad'],
+        raw: true
+    }).then(aeropuertos => {
+        res.send(groupBy(aeropuertos, 'id_aer'));
     });
 });
 
