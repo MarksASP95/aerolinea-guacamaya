@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 
+import { groupBy } from 'lodash'
+
 import './Reservas.css'
+
 
 class Reservas extends Component{
     constructor(props){
@@ -14,12 +17,23 @@ class Reservas extends Component{
                 reasignar: false,
                 sobreventa: false,
                 reportes: false
-            }
+            },
+            nuevaReserva: {
+                pasajeros: [],
+                escalas: []
+            },
+            cantEscalas: -1,
+            escalas: [],
+            listaVuelos: [],
+            AerosPorId: {}
         }
 
         this.toggleSubComponent = this.toggleSubComponent.bind(this);
         this.addObject = this.addObject.bind(this);
         this.deleteObject = this.deleteObject.bind(this);
+        this.nuevaEscala =  this.nuevaEscala.bind(this);
+
+        let listaVuelos;
     }
 
     toggleSubComponent(component){
@@ -38,6 +52,66 @@ class Reservas extends Component{
 
     deleteObject(id){
         document.getElementById(id).deleteRow(-1);
+    }
+
+    componentDidMount(){
+
+        document.getElementById('loading-component').style.visibility = 'visible';
+
+
+        let cargarAeropuertos = new Promise((resolve, reject) => {
+            fetch('aeropuerto/porciudad')
+                .then(res => {
+                    res.json()
+                        .then(aeropuertos => {
+                            resolve('Aeropuertos listos');
+                            this.setState({AerosPorId: aeropuertos});
+                        })
+                        .catch(err => {
+                            reject('Error al cargar aeropuertos');
+                        })
+                })
+        })
+
+
+        cargarAeropuertos
+        .then(any => {
+
+            fetch('vuelo')
+                .then(res => {
+                    res.json()
+                        .then(vuelos => {
+                            this.setState({listaVuelos: vuelos});
+                            var value;
+                            this.listaVuelos  = this.state.listaVuelos.map(vuelo => {
+                                //value = `{'id_vuelo':${vuelo.id_vuelo}, 'origen':${}}, 'destino':${this.state.AerosPorId[vuelo.destino][0].nom_ciudad}`;
+                                return(
+                                    <option data-origen={this.state.AerosPorId[vuelo.origen][0].nom_ciudad}
+                                            data-destino={this.state.AerosPorId[vuelo.destino][0].nom_ciudad}
+                                            value={vuelo.id_vuelo}>{vuelo.id_vuelo} => [{vuelo.origen}] - [{vuelo.destino}]</option>
+                                );
+                            })
+                        })
+                        .catch(err => {
+                            //reject('Error al cargar vuelos');
+                        })
+                })
+                    
+            console.log('Selects listos!');
+            let changeEvent = document.createEvent('Event');
+            changeEvent.initEvent('change', true, false);
+            let selects = document.getElementsByTagName('select');
+
+            for(let el of selects){
+                el.dispatchEvent(changeEvent);
+            }
+
+            document.getElementById('loading-component').style.visibility = 'hidden';
+            })
+            .catch(err => {
+                
+                console.log(err, '. Se actualizará la página');
+            })
     }
 
     getContenidoEscala(){
@@ -102,7 +176,57 @@ class Reservas extends Component{
         }
     }
 
+    setOrigenDestino(e, cantEscalas){
+        console.log(`origen${cantEscalas}`);
+        let select = document.getElementsByName(e.target.name)[cantEscalas];
+        console.log(select);
+        let origen = select.getAttribute('data-origen');
+        let destino = select.getAttribute('data-destino');
+        document.getElementsByClassName(`origen${cantEscalas}`)[0].innerHTML = 'Origen: ' + origen;
+        document.getElementsByClassName(`destino${cantEscalas}`)[0].innerHTML = 'Destino: ' + destino;
+    }
+
+    componentDidUpdate(){
+        let changeEvent = document.createEvent('Event');
+        changeEvent.initEvent('change', true, false);
+        let selects = document.getElementsByTagName('select');
+
+        for(let el of selects){
+            el.dispatchEvent(changeEvent);
+        }
+    }
+
+    nuevaEscala(){
+
+        let nuevaEscala = (<tr className="add-escala">
+                    <td>
+                        <select name={`escala${this.state.cantEscalas + 1}`} onChange={(e) => this.setOrigenDestino(e, this.state.cantEscalas)}>
+                            {this.listaVuelos}
+                        </select>
+                    </td>
+                    <td>
+                        <tr>
+                            <p className={`origen${this.state.cantEscalas + 1}`}></p>
+                        </tr>
+                        <tr>
+                            <p className={`destino${this.state.cantEscalas + 1}`}></p>
+                        </tr>
+                    </td>
+                </tr>)
+
+        let escalas = this.state.escalas;
+        escalas.push(nuevaEscala);
+
+        this.setState({cantEscalas: this.state.cantEscalas + 1,
+                       escalas: escalas});
+    }
+
     render(){
+
+        let pasajero = (<td>ID: <input type="text" class="normal-input" /></td>);
+
+        
+
         return(
             <div className="container">
                 <div className="sub-component-buttons">
@@ -130,20 +254,10 @@ class Reservas extends Component{
 
                     <h3>Vuelo(s)</h3>
                     <table className="normal-table" id="lista-escala">
-                        <tr className="add-escala">
-                            <td>
-                                <select>
-                                    <option>XXX123 [CCS] - [MIA]</option>
-                                </select>
-                            </td>
-                            <td>
-                                <tr><p> origen: </p></tr>
-                                <tr><p> destino: </p></tr>
-                            </td>
-                        </tr>
+                        {this.state.escalas}
                     </table>
-                    <button className="normal-button" onClick={() => this.addObject('escala')}>Añadir escala</button>
-                    <button className="normal-button" onClick={() => this.deleteObject('lista-escala')}>Quitar escala</button>
+                    <button className="normal-button" onClick={this.nuevaEscala}>Añadir escala</button>
+                    <button className="normal-button">Quitar escala</button>
 
                     <h3>Pasajeros</h3>
                     <table className="normal-table" id="lista-pasajero">
