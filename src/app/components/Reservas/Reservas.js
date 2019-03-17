@@ -50,10 +50,6 @@ class Reservas extends Component{
         this.setState({subComponents: subComponentsCopy});
     }
 
-    deleteObject(id){
-        document.getElementById(id).deleteRow(-1);
-    }
-
     componentDidMount(){
 
         document.getElementById('loading-component').style.visibility = 'visible';
@@ -112,68 +108,6 @@ class Reservas extends Component{
                 
                 console.log(err, '. Se actualizará la página');
             })
-    }
-
-    getContenidoEscala(){
-        let vuelos = ['XXX123', 'XXX456', 'XXX789'];
-        let select = document.createElement('SELECT');
-        vuelos.forEach((vuelo) => {
-            let option = document.createElement('OPTION');
-            option.innerHTML = vuelo;
-            select.appendChild(option);
-        });
-        // SELECT LISTO
-
-        let firstTD = document.createElement('TD');
-        let secondTD = document.createElement('TD');
-        firstTD.appendChild(select);
-
-        let origenTR = document.createElement('TR');
-        let destinoTR = document.createElement('TR');
-
-        let origenP = document.createElement('P');
-        let destinoP = document.createElement('P');
-
-        origenP.innerHTML = ' origen: ';
-        destinoP.innerHTML = ' destino: ';
-
-        origenTR.appendChild(origenP);
-        destinoTR.appendChild(destinoP);
-
-        secondTD.appendChild(origenTR);
-        secondTD.appendChild(destinoTR);
-
-        return [firstTD, secondTD];
-
-    }
-
-    getContenidoPasajero(){
-        let td = document.createElement('TD');
-        td.innerHTML = 'ID: ';
-        
-        let input = document.createElement('INPUT');
-        input.setAttribute('type', 'text');
-        input.setAttribute('class', 'normal-input');
-
-        td.appendChild(input);
-        
-        return td;
-    }
-
-    addObject(objType){
-        let newObj = document.getElementsByClassName(`add-${objType}`)[0];
-        //console.log(newObj);
-        let table = document.getElementById(`lista-${objType}`);
-        let newRow = table.insertRow();
-        newRow.setAttribute('class', `add-${objType}`)
-        if(objType == 'pasajero'){
-            newRow.appendChild(this.getContenidoPasajero());
-        }
-        else{
-            let contenidoEscala = this.getContenidoEscala();
-            newRow.appendChild(contenidoEscala[0]);
-            newRow.appendChild(contenidoEscala[1]);
-        }
     }
 
     setOrigenDestino(e, cantEscalas){
