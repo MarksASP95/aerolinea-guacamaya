@@ -1,0 +1,9 @@
+.state {
+    position: fixed;
+    font-family: 'Consolas';
+    width: 300px;
+    height: 400px;
+    right: 0;
+    background-color: white;
+    overflow: scroll;
+}
