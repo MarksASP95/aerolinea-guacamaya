@@ -12,6 +12,7 @@ var Sequelize = db.Sequelize;
 
 //Avion.belongsTo(ModeloAvion, {foreignKey: 'modelo'});
 
+// se utiliza plain text debido al parametro de los LIKE
 router.get('/:fabricante/:modelo/:estado', (req, res) => {
     sequelize.query(`SELECT * 
                     FROM avion 
