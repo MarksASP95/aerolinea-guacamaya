@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import { groupBy } from 'lodash'
+import State from '../State/State'
 
 import './Reservas.css'
 
@@ -25,13 +25,16 @@ class Reservas extends Component{
             cantEscalas: -1,
             escalas: [],
             listaVuelos: [],
-            AerosPorId: {}
+            AerosPorId: {},
+            pasajeros: [],
+            cantPasajeros: -1
         }
 
         this.toggleSubComponent = this.toggleSubComponent.bind(this);
-        this.addObject = this.addObject.bind(this);
-        this.deleteObject = this.deleteObject.bind(this);
         this.nuevaEscala =  this.nuevaEscala.bind(this);
+        this.borrarEscala = this.borrarEscala.bind(this);
+        this.nuevoPasajero = this.nuevoPasajero.bind(this);
+        this.borrarPasajero = this.borrarPasajero.bind(this);
 
         let listaVuelos;
     }
@@ -151,25 +154,44 @@ class Reservas extends Component{
         let escalas = this.state.escalas;
         escalas.push(nuevaEscala);
 
-        this.setState({cantEscalas: this.state.cantEscalas + 1,
-                       escalas: escalas});
+        this.setState({cantEscalas: this.state.cantEscalas + 1, escalas: escalas});
     }
 
     borrarEscala(){
-        let escalas = document.getElementsByClassName('add-escala');
-        let ultimaEscala = escalas[escalas.length - 1];
+        let escalas = this.state.escalas;
+        if(escalas.length > 0){
+            let cantEscalas = this.state.cantEscalas - 1;
+            escalas.splice(-1,1);
+            this.setState({escalas: escalas, cantEscalas: cantEscalas});
+        }
+    }
 
-        ultimaEscala.parentNode.removeChild(ultimaEscala);
+    nuevoPasajero(){
+        let nuevoPasajero = (<tr class="add-pasajero"><td>ID: <input type="text" class="normal-input" /></td></tr>)
+
+        let pasajeros = this.state.pasajeros;
+        pasajeros.push((nuevoPasajero));
+
+        this.setState({cantPasajeros: this.state.cantPasajeros + 1, pasajeros: pasajeros})
+
+    }
+
+    borrarPasajero(){
+        let pasajeros = this.state.pasajeros;
+        if(pasajeros.length > 0){
+            let cantPasajeros = this.state.cantPasajeros - 1;
+            pasajeros.splice(-1,1);
+            this.setState({pasajeros: pasajeros, cantPasajeros: cantPasajeros});
+        }
     }
 
     render(){
-
-        let pasajero = (<td>ID: <input type="text" class="normal-input" /></td>);
 
         
 
         return(
             <div className="container">
+               {/*  <State json={JSON.stringify(this.state, null, "\t")} /> */}
                 <div className="sub-component-buttons">
                     <div className="normal-button" onClick={() => this.toggleSubComponent('nueva')}><span>Nueva reserva</span></div>
                     <div className="normal-button" onClick={() => this.toggleSubComponent('otorgarBoleto')}><span>Otorgar boleto</span></div>
@@ -202,14 +224,10 @@ class Reservas extends Component{
 
                     <h3>Pasajeros</h3>
                     <table className="normal-table" id="lista-pasajero">
-                        <tr class="add-pasajero">
-                            <td>
-                                ID: <input type="text" className="normal-input"></input>
-                            </td>
-                        </tr>
+                        {this.state.pasajeros}
                     </table>
-                    <button className="normal-button" onClick={() => this.addObject('pasajero')}>Añadir pasajero</button>
-                    <button className="normal-button" onClick={() => this.deleteObject('lista-pasajero')}>Quitar pasajero</button>
+                    <button className="normal-button" onClick={this.nuevoPasajero}>Añadir pasajero</button>
+                    <button className="normal-button" onClick={this.borrarPasajero}>Quitar pasajero</button>
 
                     <h3>Costo: $2000</h3>
                     <button className="normal-button middle-button">Crear reserva</button>
