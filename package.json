@@ -29,7 +29,7 @@
   "dependencies": {
     "express": "^4.16.4",
     "file-loader": "^3.0.1",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.21",
     "morgan": "^1.9.1",
     "mysql": "^2.16.0",
     "mysql2": "^1.6.4",
